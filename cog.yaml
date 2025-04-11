@@ -3,9 +3,17 @@ build:
   gpu: true
   system_packages:
     - git
-  python_packages: []
+  python_packages:
+    - flask
+    - pyngrok
+    - faiss-cpu
+    - numpy
+    - sentence-transformers
+    - transformers
+    - PyPDF2
+    - torch==2.3.1
+    - Pillow
   run:
-    - cp /src/requirements.txt /tmp/requirements.txt
-    - pip install -r /tmp/requirements.txt
+    - echo "Installing requirements complete"
 
 predict: "predict.py:Predictor"

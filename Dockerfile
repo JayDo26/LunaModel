@@ -1,5 +1,5 @@
 # Sử dụng image Python 3.9 để match với cog.yaml
-FROM python:3.9-slim
+FROM python:3.12-slim
 
 # Đặt thư mục làm việc trong container
 WORKDIR /src

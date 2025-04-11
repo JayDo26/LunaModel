@@ -1,5 +1,5 @@
 build:
-  python_version: "3.9"
+  python_version: "3.12"
   gpu: true
   system_packages:
     - git

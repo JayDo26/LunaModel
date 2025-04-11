@@ -5,11 +5,11 @@ on:
     branches:
     - main
     
-  # workflow_dispatch:
-  #   inputs:
-  #     model_name:
-  #       description: 'Enter the model name, like "jaydo26/luna-model"'
-  #       required: true
+    workflow_dispatch:
+      inputs:
+        model_name:
+          description: 'Enter the model name, like "jaydo26/luna-model"'
+          required: true
  
 jobs:
   push_to_replicate:

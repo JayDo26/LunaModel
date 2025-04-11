@@ -1,41 +1,28 @@
-# Sử dụng image Python 3.12 với phiên bản cụ thể cho tính ổn định
-FROM python:3.12.2-slim@sha256:abc123def456ghi789jkl012mno345pqrs678tuv901wxyz234567890abcdef
-
-# Thiết lập timezone
-RUN apt-get update && apt-get install -y --no-install-recommends tzdata && \
-    ln -fs /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Thiết lập biến môi trường Python
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+# Sử dụng image Python 3.9 để match với cog.yaml
+FROM python:3.9-slim
 
 # Đặt thư mục làm việc trong container
 WORKDIR /src
 
-# Create default empty requirements.txt file
-RUN echo "# Default empty requirements file" > /src/requirements.txt
+# Cài đặt system packages
+RUN apt-get update && apt-get install -y git && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy requirements.txt if it exists (will overwrite the default)
-# Check if requirements.txt exists and copy it, otherwise create a default one
-RUN if [ -f requirements.txt ]; then cp requirements.txt /src/ && chmod 644 /src/requirements.txt; else echo "# Default empty requirements file" > /src/requirements.txt; fi
-
-# Cài đặt các dependencies từ requirements.txt (giảm kích thước image)
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Tạo user không phải root
-RUN adduser --disabled-password --gecos '' appuser
+# Cài đặt Python packages từ cog.yaml
+RUN pip install --no-cache-dir \
+    flask \
+    pyngrok \
+    faiss-cpu \
+    numpy \
+    sentence-transformers \
+    transformers \
+    PyPDF2 \
+    torch==2.3.1 \
+    Pillow
 
 # Copy toàn bộ mã nguồn của bạn vào container
 COPY . .
-
-# Chuyển quyền sở hữu thư mục cho user không phải root
-RUN chown -R appuser:appuser /src
-
-# Chuyển sang user không phải root
-USER appuser
 
 # Mở cổng 5000 (nếu ứng dụng của bạn chạy trên cổng này)
 EXPOSE 5000

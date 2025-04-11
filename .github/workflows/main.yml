@@ -25,6 +25,9 @@ jobs:
         uses: replicate/setup-cog@v2
         with:
           token: ${{ secrets.REPLICATE_CLI_AUTH_TOKEN }}
+      
+      - name: Ensure requirements.txt exists
+        run: touch requirements.txt
  
       - name: Push to Replicate
         run: cog push r8.im/${{ inputs.model_name }}

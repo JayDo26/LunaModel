@@ -6,7 +6,8 @@ WORKDIR /src
 
 # Copy file requirements.txt vào container từ thư mục cha
 COPY ../requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip freeze > requirements.txt
+
 
 # Copy toàn bộ mã nguồn của bạn vào container
 COPY . .

@@ -1,7 +1,9 @@
-flask
+# Add your Python dependencies here, for example:
+flask==2.3.3
+numpy==1.25.2
+pandas==2.1.0
 pyngrok
 faiss-cpu
-numpy
 sentence-transformers
 transformers
 PyPDF2

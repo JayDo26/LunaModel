@@ -15,8 +15,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Đặt thư mục làm việc trong container
 WORKDIR /src
 
-# Copy requirements.txt từ thư mục hiện tại (không phải thư mục cha)
-COPY requirements.txt .
+# Create default empty requirements.txt file
+RUN echo "# Default empty requirements file" > /src/requirements.txt
+
+# Copy requirements.txt if it exists (will overwrite the default)
+# Check if requirements.txt exists and copy it, otherwise create a default one
+RUN if [ -f requirements.txt ]; then cp requirements.txt /src/ && chmod 644 /src/requirements.txt; else echo "# Default empty requirements file" > /src/requirements.txt; fi
 
 # Cài đặt các dependencies từ requirements.txt (giảm kích thước image)
 RUN pip install --no-cache-dir -r requirements.txt

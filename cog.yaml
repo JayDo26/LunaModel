@@ -1,8 +1,11 @@
 build:
   python_version: "3.12"
-  gpu: true  
+  gpu: true
   system_packages:
-    - git  # nếu bạn cần clone từ HuggingFace
+    - git
+  python_packages: []
   run:
-    - pip install -r requirements.txt
+    - cp /src/requirements.txt /tmp/requirements.txt
+    - pip install -r /tmp/requirements.txt
+
 predict: "predict.py:Predictor"

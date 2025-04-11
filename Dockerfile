@@ -1,23 +1,20 @@
-# Sử dụng image Python tối giản phù hợp
-FROM python:3.9-slim
+# Sử dụng image Python 3.12 (phiên bản slim có kích thước nhỏ hơn)
+FROM python:3.12-slim
 
-# Cài đặt các gói hệ thống cần thiết
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# Đặt thư mục làm việc trong container
+WORKDIR /src
 
-# Đặt thư mục làm việc cho container
-WORKDIR /app
-
-# Sao chép file requirements.txt và cài đặt các thư viện Python
+# Copy file requirements.txt vào container
 COPY requirements.txt .
+
+# Cài đặt các package cần thiết
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Sao chép toàn bộ mã nguồn và thư mục pdf_docs vào container
+# Copy toàn bộ mã nguồn của bạn vào container
 COPY . .
 
-# Expose cổng mặc định của ứng dụng (5000)
+# Mở cổng 5000 (nếu ứng dụng của bạn chạy trên cổng này)
 EXPOSE 5000
 
-# Lệnh chạy ứng dụng
+# Thiết lập lệnh khởi chạy khi container chạy
 CMD ["python", "app.py"]

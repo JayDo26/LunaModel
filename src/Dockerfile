@@ -4,8 +4,8 @@ FROM python:3.12-slim
 # Đặt thư mục làm việc trong container
 WORKDIR /src
 
-# Copy file requirements.txt vào container
-COPY requirements.txt .
+# Copy file requirements.txt vào container từ thư mục cha
+COPY ../requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy toàn bộ mã nguồn của bạn vào container

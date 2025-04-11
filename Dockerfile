@@ -6,9 +6,7 @@ WORKDIR /src
 
 # Copy file requirements.txt vào container
 COPY requirements.txt .
-
-# Cài đặt các package cần thiết
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy toàn bộ mã nguồn của bạn vào container
 COPY . .

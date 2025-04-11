@@ -1,0 +1,10 @@
+flask
+pyngrok
+faiss-cpu
+numpy
+sentence-transformers
+transformers
+PyPDF2
+torch==2.3.1
+Pillow
+cog

@@ -1,5 +1,5 @@
 from cog import BasePredictor, Input
-from app import initialize_models, CRAGPipeline
+from src.app import initialize_models, CRAGPipeline
 
 class Predictor(BasePredictor):
     def setup(self):
